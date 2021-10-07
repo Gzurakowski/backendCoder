@@ -1,0 +1,22 @@
+{
+  "name": "backendcoder",
+  "version": "1.0.0",
+  "description": "Mis practicas en el curso de backend brindado por CoderHouse",
+  "main": "Desafio1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gzurakowski/backendCoder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gzurakowski/backendCoder/issues"
+  },
+  "homepage": "https://github.com/Gzurakowski/backendCoder#readme",
+  "dependencies": {
+    "fs": "*"
+  }
+}
