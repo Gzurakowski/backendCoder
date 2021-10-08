@@ -54,14 +54,8 @@ class Contenedor {
     }
 }
 
-contenedor = new Contenedor('C:\\Users\\Gonzalo\\Desktop\\CursoCoder\\backendCoder\\Test.txt');
-
-
-
-
-
 const test = async () => {
-    contenedor = new Contenedor('C:\\Users\\Gonzalo\\Desktop\\CursoCoder\\backendCoder\\Test.txt');
+    contenedor = new Contenedor('Test.txt');
     for (let i = 0; i < 30; i++){
         console.log( await contenedor.save({title: i, price: 50,thumbnail: 'foto'}))
     }
