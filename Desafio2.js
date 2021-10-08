@@ -17,16 +17,16 @@ class Contenedor {
             arch.push(data);
             return arch;
         })// si hay un array de objetos agrega el nuevo objeto
-        .then(arch => fs.promises.writeFile(this.archivo, JSON.stringify(arch)).catch(error =>console.log(error)))// y vuelve a escribir el archivo
+        .then(arch => {
+            fs.promises.writeFile(this.archivo, JSON.stringify(arch)).catch(error =>console.log(error));
+        })// y vuelve a escribir el archivo
         .catch(error => {
             console.log(error);
             fs.promises.writeFile(this.archivo, JSON.stringify([data])).catch(err => console.log(err));
             console.log('se creo el archivo')
-            
         })
+        .finally(() => {return this.id})
 
-       
-    return this.id; 
     }
 
     async getById(number){
@@ -47,7 +47,7 @@ class Contenedor {
     }
 }
 
-contenedor = new Contenedor('C:\\Users\\Gonzalo\\Desktop\\CursoCoder\\backendCoder\\Test.txt');
+contenedor = new Contenedor('C:\\Users\\Gonzalo\\Desktop\\CursoCoder\\backendCoder\\JSON');
 contenedor.save({title: 'queso', price: 50,thumbnail: 'foto'});
 
 // contenedor.save({title: 'pan', price: 50,thumbnail: 'foto'});
