@@ -62,7 +62,7 @@ const test = async () => {
     console.log( await contenedor.getById(20))
     await contenedor.deleteById(2)
     console.log( await contenedor.getAll())
-    //await contenedor.deleteAll()
+    await contenedor.deleteAll()
     
     console.log( await contenedor.getAll())
 }
