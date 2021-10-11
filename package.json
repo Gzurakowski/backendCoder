@@ -4,7 +4,8 @@
   "description": "Mis practicas en el curso de backend brindado por CoderHouse",
   "main": "Desafio1.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node main.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,11 @@
   },
   "homepage": "https://github.com/Gzurakowski/backendCoder#readme",
   "dependencies": {
-    "fs": "*"
+    "express": "^4.17.1",
+    "fs": "*",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
   }
 }
