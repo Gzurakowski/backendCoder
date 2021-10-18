@@ -1,7 +1,7 @@
-const modulo = require("./Desafio2.js")
+const {contenedor} = require("./Desafio2.js")
 const express = require("express")
 const PORT = 8080
-const Contenedor = new modulo.Contenedor("Test.txt")
+const Contenedor = new contenedor("Test.txt")
 
 const random = (number)=> parseInt(Math.random() * number)
 
