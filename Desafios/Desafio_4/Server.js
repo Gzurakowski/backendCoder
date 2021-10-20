@@ -37,7 +37,7 @@ app.use('/api/productos',routerProductos)
 
 /* ------------------------------------------------------ */
 /* Server Listen */
-const PORT = 3000
+const PORT = 8080
 const server = app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${server.address().port}`)
 })
