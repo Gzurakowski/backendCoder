@@ -1,0 +1,20 @@
+<h2>Historial</h2>
+<% const hayPersonas = personas.length > 0; %> 
+<% if (hayPersonas){ %> 
+    <table>
+        <tr>
+        <th>Nombre</th>
+        <th>apellido</th>
+        <th>edad</th>
+        </tr>
+        <% personas.forEach(persona => { %> 
+        <tr>
+            <td><%= persona.nombre %> </td>
+            <td><%=persona.apellido %> </td>
+            <td><%= persona.edad %> </td>
+        </tr>
+        <% }); %> 
+    </table>
+<% } else { %>
+    <h3>no se encontraron datos</h3> 
+<% }; %> 
