@@ -1,0 +1,14 @@
+h1= 'Ingrese los datos del producto'
+br
+form(action="/productos" method="post")
+    label(for="titulo")= 'Titulo'
+    input(type="text" id='titulo' name='titulo')
+    br
+    label(for="precio")= 'Precio'
+    input(type="number" id='precio' name='precio')
+    br
+    label(for="foto")= 'Foto'
+    input(type="text" id='foto' name='foto')
+    br
+    button(type='submit')= 'Enviar'
+     

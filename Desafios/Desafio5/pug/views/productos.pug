@@ -1,0 +1,17 @@
+h1= 'Productos'
+if (productos.length > 0)
+    table 
+        tr 
+            th='Titulo'
+            th='Precio'
+            th='Foto'
+        each producto in productos
+            tr 
+                td=producto.titulo 
+                td=producto.precio 
+                td 
+                    img(src=producto.foto style="width:70px;height:70px;")
+else 
+    h3='No se encontraron productos'
+
+
