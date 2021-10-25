@@ -1,2 +1,2 @@
 # backendCoder
-Mis practicas en el curso de backend brindado por CoderHouse
+Desafios genericos para practicar
