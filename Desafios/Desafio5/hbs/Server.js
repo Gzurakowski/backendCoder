@@ -3,6 +3,8 @@ const handlebars = require('express-handlebars')
 const app = express()
 const productos = []
 
+
+
 app.use(express.urlencoded({extended: true}))
 
 app.set('views', './views')
@@ -14,11 +16,12 @@ app.engine('hbs', handlebars({
 }))
 
 app.get('/', (req, res) =>{
-    res.render('main', {ruta:''})
+    res.render('main', {rutaFormulario:true, rutaProductos:false})
 })
 
 app.get('/productos', (req, res) =>{
-    res.render('main', {ruta:'/productos', productos})
+    const hayProductos = productos.length > 0
+    res.render('main', {rutaProductos:true, productos, formulario:false, hayProductos:hayProductos})
 })
 
 app.post('/productos', (req, res) =>{

@@ -1,8 +1,9 @@
 {{> botones }}
 
-{{#if ruta.length == 0}}
+{{#if rutaFormulario}}
     {{> formulario}}
+{{/if}}
 
-{{else}}
-    {{> historial personas}}
+{{#if rutaProductos}}
+    {{> productos}}
 {{/if}}
