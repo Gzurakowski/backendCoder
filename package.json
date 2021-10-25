@@ -1,29 +1,30 @@
 {
-  "name": "backendcoder",
+  "name": "desafio5",
   "version": "1.0.0",
-  "description": "Mis practicas en el curso de backend brindado por CoderHouse",
-  "main": "Desafio1.js",
+  "description": "Desafio 5",
+  "main": "Server.js",
   "scripts": {
-    "serve": "nodemon server.js"
+    "hbs": "nodemon ./hbs/Server.js",
+    "pug": "nodemon ./pug/Server.js",
+    "ejs": "nodemon ./ejs/Server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Gzurakowski/backendCoder.git"
   },
-  "author": "",
+  "author": "Gonzalo Zurakowski",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Gzurakowski/backendCoder/issues"
   },
   "homepage": "https://github.com/Gzurakowski/backendCoder#readme",
   "dependencies": {
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
-    "fs": "*",
-    "moment": "^2.29.1",
-    "multer": "^1.4.3",
-    "nodemon": "^2.0.14",
     "pug": "^3.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
 }

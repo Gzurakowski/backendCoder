@@ -5,7 +5,7 @@ const productos = []
 
 app.use(express.urlencoded({extended: true}))
 
-app.set('views', './views')
+app.set('views', './pug/views')
 app.set('view engine', 'pug')
 
 app.get('/', (req, res) =>{
