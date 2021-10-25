@@ -1,2 +1,7 @@
 # backendCoder
-Mis practicas en el curso de backend brindado por CoderHouse
+
+* **para correr con node: npm test**
+
+---
+
+Desafio 2 completado
