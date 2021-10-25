@@ -1,2 +1,12 @@
-# backendCoder
-Mis practicas en el curso de backend brindado por CoderHouse
+# Desicion sobre que motor de plantillas usar
+* De base no utilizaria handleBars, es demasiado rebuscado para hacer cosas muy simples
+
+* Ejs tiene una sintaxis muy comoda y facil de utilizar
+
+* PugJS tiene una sintaxis medio extraña, pero cuando te acostumbras es muy facil de utilizar y dinamica
+
+---
+## Los 3 tienen una documentacion horrible
+
+**Entre los 3 utilizaria EJS o PugJS dependiendo del proyecto que vaya a hacer**
+
