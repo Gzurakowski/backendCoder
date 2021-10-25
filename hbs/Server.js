@@ -1,19 +1,27 @@
 const express = require('express')
-
+const handlebars = require('express-handlebars')
 const app = express()
 const productos = []
 
+
+
 app.use(express.urlencoded({extended: true}))
 
-app.set('views', './views')
-app.set('view engine', 'ejs')
+app.set('views', './hbs/views')
+app.set('view engine', 'hbs')
+
+app.engine('hbs', handlebars({
+    extname:'.hbs',
+    defaultLayout:'index.hbs'
+}))
 
 app.get('/', (req, res) =>{
-    res.render('main', {ruta:''})
+    res.render('main', {rutaFormulario:true, rutaProductos:false})
 })
 
 app.get('/productos', (req, res) =>{
-    res.render('main', {ruta:'/productos', productos})
+    const hayProductos = productos.length > 0
+    res.render('main', {rutaProductos:true, productos, formulario:false, hayProductos:hayProductos})
 })
 
 app.post('/productos', (req, res) =>{
