@@ -54,19 +54,19 @@ class Contenedor {
     }
 }
 
-// const test = async () => {
-//     contenedor = new Contenedor('Test.txt');
-//     for (let i = 0; i < 30; i++){
-//         console.log( await contenedor.save({title: i, price: 50,thumbnail: 'foto'}))
-//     }
-//     console.log( await contenedor.getById(20))
-//     await contenedor.deleteById(2)
-//     console.log( await contenedor.getAll())
-//     await contenedor.deleteAll()
+const test = async () => {
+    contenedor = new Contenedor('Test.txt');
+    for (let i = 0; i < 30; i++){
+        console.log( await contenedor.save({title: i, price: 50,thumbnail: 'foto'}))
+    }
+    console.log( await contenedor.getById(20))
+    await contenedor.deleteById(2)
+    console.log( await contenedor.getAll())
+    await contenedor.deleteAll()
     
-//     console.log( await contenedor.getAll())
-// }
-//test()
+    console.log( await contenedor.getAll())
+}
+test()
 
 module.exports.Contenedor = Contenedor;
 
