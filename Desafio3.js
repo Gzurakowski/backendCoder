@@ -1,4 +1,4 @@
-const {contenedor} = require("./Desafio2.js")
+const {contenedor} = require("./Contenedor.js")
 const express = require("express")
 const PORT = 8080
 const Contenedor = new contenedor("Test.txt")
