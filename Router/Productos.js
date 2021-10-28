@@ -40,7 +40,7 @@ routerProductos.put('/:id',  (req,res) =>{
     if (Contenedor[id]){
         Contenedor[id].title = req.body.title;
         Contenedor[id].price = req.body.price;
-        Contenedor[id].thumnail = req.body.thumnail;
+        Contenedor[id].thumbnail = req.body.thumbnail;
         res.json(Contenedor[id])
     }else{
         res.send({'error': "producto no encontrado"})
