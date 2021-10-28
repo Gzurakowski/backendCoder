@@ -35,10 +35,12 @@ routerProductos.post('/',(req, res) =>{
 
 
 routerProductos.put('/:id',  (req,res) =>{
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
 
     if (Contenedor[id]){
-        Contenedor[id] = req.body;
+        Contenedor[id].title = req.body.title;
+        Contenedor[id].price = req.body.price;
+        Contenedor[id].thumnail = req.body.thumnail;
         res.json(Contenedor[id])
     }else{
         res.send({'error': "producto no encontrado"})
