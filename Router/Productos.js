@@ -1,10 +1,11 @@
+const { Console } = require('console');
 const { Router, json } = require('express');
 const routerProductos = Router();
 
 let C_id = 1
 const CrearID = () => C_id++;
 
-const Contenedor = []
+let Contenedor = []
 
 routerProductos.use(json())
 routerProductos.get('/', (req, res) =>{
@@ -49,12 +50,9 @@ routerProductos.put('/:id',  (req,res) =>{
 })
 
 routerProductos.delete('/:id', (req, res)=>{
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     if (Contenedor[id]){
-        const producto = Contenedor[id];
-        Contenedor[id] = Contenedor[Contenedor.length - 1]
-        Contenedor[Contenedor.length - 1] = producto
-        Contenedor.pop()
+        Contenedor = Contenedor.filter(producto => producto.id != id)        
         res.send(`<h1> El producto ha sido eliminado con exito <h1> `)
     }else{
         res.send({'error': "producto no encontrado"})
