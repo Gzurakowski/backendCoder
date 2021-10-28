@@ -17,7 +17,7 @@ routerProductos.get('/', (req, res) =>{
 })
 
 routerProductos.get('/:id', async (req, res) =>{
-    const id = req.params.id;
+    const id = parseInt(req.params.id) - 1;
     if (Contenedor[id]){
         res.json(Contenedor[id])
     }else{
