@@ -1,0 +1,15 @@
+<% const hayMensajes = mensajes.length > 0; %> 
+<% if (hayMensajes){ %> 
+    <% mensajes.forEach(mensaje => { %> 
+        <span><strong style="color: blue;"><%= mensaje.mail %></strong></span>
+        
+        <span>[
+            <% if(mensaje.fecha){ %> 
+            <span style="color: brown;"><%= mensaje.fecha[0] %> <%= mensaje.fecha[1] %> </span>
+            <% } %> 
+            ]:</span>
+        <span><i style="color: green;"><%= mensaje.mensaje %> </i></span>
+        <br>
+<% })} else { %>
+    <h3>no se encontraron Mensajes</h3> 
+<% }; %> 

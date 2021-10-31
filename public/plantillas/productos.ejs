@@ -1,0 +1,20 @@
+<h1>Productos</h1>
+<% const hayProductos = productos.length > 0; %> 
+<% if (hayProductos){ %> 
+    <table>
+        <tr>
+        <th>Titulo</th>
+        <th>Precio</th>
+        <th>Foto</th>
+        </tr>
+        <% productos.forEach(producto => { %> 
+        <tr>
+            <td><%= producto.titulo %> </td>
+            <td><%= producto.valor %> </td>
+            <td><img src=<%= producto.foto %> style='width:70px;height:70px;'></td>
+        </tr>
+        <% }); %> 
+    </table>
+<% } else { %>
+    <h3>no se encontraron productos</h3> 
+<% }; %> 
