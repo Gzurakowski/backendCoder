@@ -68,7 +68,6 @@ io.on('connection', async socket => {
     
     socket.on('newProduct', producto => {
         productos.push(producto)
-        console.log(productos)
         io.emit('productos', productos)
     })
     
