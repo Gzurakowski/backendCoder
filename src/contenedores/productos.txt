@@ -1,1 +1,1 @@
-[{"timeStamp":1636788538413,"nombre":"Jamon","descripcion":"Esto es Jamon","codigo":"1235","foto":"foto","precio":100,"stock":500,"id":0},{"timeStamp":1636788560672,"nombre":"Queso","descripcion":"Esto es Queso","codigo":"1234","foto":"foto","precio":50,"stock":300,"id":1}]
+[]
