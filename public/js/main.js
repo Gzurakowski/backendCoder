@@ -6,7 +6,7 @@ formAgregarProducto.addEventListener('submit', e =>{
     e.preventDefault()
     const Producto = {
         titulo: document.getElementById('titulo').value,
-        valor: document.getElementById('precio').value,
+        precio: document.getElementById('precio').value,
         foto: document.getElementById('foto').value
     }
     
@@ -30,11 +30,10 @@ Email.addEventListener('emptied', e =>{
 const formMensaje = document.getElementById('formMensaje')
 formMensaje.addEventListener('submit', e =>{
     e.preventDefault()
-    let date = new Date()
     const Mensaje = {
         mail: document.getElementById('mail').value,
         mensaje: document.getElementById('mensaje').value,
-        fecha: [date.toLocaleDateString(), date.toLocaleTimeString()]
+        fecha: new Date().toISOString()
     }
     if (Mensaje.mensaje.length > 0 && Mensaje.mail.length > 0){
         socket.emit('newMessage', Mensaje)

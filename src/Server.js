@@ -1,74 +1,58 @@
 const express = require('express')
 const {Server: HttpServer} = require('http');
 const {Server: IOServer} = require('socket.io')
-const fs = require('fs')
+const {DB} = require('./contenedor.js')
+require('dotenv').config()
+
+const mySQLOptions = {
+    client:'mysql',
+    connection:{
+        host:'127.0.0.1',
+        user: process.env.DBuser,
+        password: process.env.DBpassword,
+        database: process.env.DBname
+    },
+    pool:{min:0, max:7}
+}
+
+const SQLiteOptions = {
+    client:'sqlite3',
+    connection: {filename: './ecommerce/DB.sqlite'}
+}
+const DBMensajes = new DB(mySQLOptions, 'mensajes')
+const DBProductos = new DB(SQLiteOptions, 'productos')
+DBMensajes.crearTabla()
+// BProductos.crearTabla()
 
 const app = express()
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
-const mensajes = []
-const productos = []
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-class Contenedor {
-    constructor(archivo){
-        this.id = 0
-        this.archivo = archivo;
-    }
-    async save(data){
-        data.id = this.id
-        await fs.promises.readFile(this.archivo,'utf-8')
-        .then(arch => JSON.parse(arch))// si lee el archivo lo parsea
-        .then(arch => {
-            if (arch.length != 0){
-                data.id = arch[arch.length - 1].id + 1;
-                this.id = data.id;
-            }
-            arch.push(data);
-            return arch;
-        })// si hay un array de objetos agrega el nuevo objeto
-        .then(arch => {
-            fs.promises.writeFile(this.archivo, JSON.stringify(arch)).catch(error =>console.log(error))
-        })// y vuelve a escribir el archivo
-        .catch(error => {
-            console.log(error);
-            fs.promises.writeFile(this.archivo, JSON.stringify([data])).catch(err => console.log(err));
-            console.log('se creo el archivo')
-            this.id = null;        
-        })
-        return this.id;
-    }
 
-    
-    async getAll(){
-        return await fs.promises.readFile(this.archivo,'utf-8')
-        .then(arch => JSON.parse(arch))// si lee el archivo lo parsea
-        .catch(error => console.log(error))
-    }
-    
-}
 
-const Datos = new Contenedor('Mensajes.txt')
 
 io.on('connection', async socket => {
     console.log('nuevo usuario')
-    const Mensajes = await Datos.getAll()
-    
+    const Mensajes = await DBMensajes.getAll()
+    const Productos = await DBProductos.getAll()
     socket.emit('mensajes', Mensajes)
-    socket.emit('productos', productos)
+    socket.emit('productos', Productos)
     
     
-    socket.on('newMessage', async ({mail, mensaje, fecha}) =>{
-        await Datos.save({mail, mensaje, fecha})
-        io.emit('mensajes', await Datos.getAll())
+    socket.on('newMessage', async ({mail, mensaje}) =>{
+        await DBMensajes.save({mail, mensaje})
+        const Mensajes = await DBMensajes.getAll()
+        io.emit('mensajes', Mensajes)
     })
     
-    socket.on('newProduct', producto => {
-        productos.push(producto)
-        io.emit('productos', productos)
+    socket.on('newProduct', async producto => {
+        await DBProductos.save(producto)
+        const Productos = await DBProductos.getAll()
+        io.emit('productos', Productos)
     })
     
 })
