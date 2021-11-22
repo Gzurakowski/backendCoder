@@ -44,7 +44,6 @@ class DB {
             object.fecha = currentTime.replace('T', ' ').replace('Z', ' ')
             console.log(object)
             this.db(this.tableName).insert(object)
-            .then(obj => console.log(obj))
         }
         catch(err){
             console.log(err)
