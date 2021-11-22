@@ -22,7 +22,7 @@ const SQLiteOptions = {
 const DBMensajes = new DB(mySQLOptions, 'mensajes')
 const DBProductos = new DB(SQLiteOptions, 'productos')
 DBMensajes.crearTabla()
-// BProductos.crearTabla()
+DBProductos.crearTabla()
 
 const app = express()
 const httpServer = new HttpServer(app)

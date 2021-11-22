@@ -30,19 +30,18 @@ class DB {
                 table.integer('precio')
                 table.string('foto')
                 table.datetime('fecha')
-            }).catch(err => console.log('Base de datos ya creada'))
+            }).catch(err => console.log(err))
         }else{
             console.log('tabla invalida')
         }
         
     }
     
-    save(object){
+    async save(object){
         try{
             const currentTime = new Date().toISOString()
             object.fecha = currentTime.replace('T', ' ').replace('Z', ' ')
-            console.log(object)
-            this.db(this.tableName).insert(object)
+            await this.db(this.tableName).insert(object)
         }
         catch(err){
             console.log(err)
