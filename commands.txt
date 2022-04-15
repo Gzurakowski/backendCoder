@@ -1,0 +1,29 @@
+use ecommerce
+
+db.productos.insertMany([{titulo:"pan", precio:120, foto:"url"}, {titulo:"queso", precio:220, foto:"url"}, {titulo:"pan asiatico", precio:420, foto:"url"}, {titulo:"queso arabico", precio:122, foto:"url"}, {titulo:"pan arabe", precio:324, foto:"url"},{titulo:"pan", precio:120, foto:"url"}, {titulo:"queso", precio:220, foto:"url"}, {titulo:"pan asiatico", precio:420, foto:"url"}, {titulo:"queso arabico", precio:122, foto:"url"}, {titulo:"pan arabe", precio:324, foto:"url"}])
+
+10 X db.mensajes.insert({mail:"gzurak@gzurak.com", mensaje:"Hola Mundo", fecha: IsoDate()}) 
+
+db.productos.find()
+
+db.mensajes.find()
+
+db.productos.find().count()
+
+db.mensajes.find().count()
+
+db.productos.insert({titulo:"Producto nuevo", precio:1000, foto:"URL"})
+
+db.productos.find({precio:{$lt:1000}})
+
+db.productos.find({$and:[{precio:{$gt:1000}}, {precio:{$lt:3000}}]})
+
+db.productos.find({precio:{$gt:3000}})
+
+ db.productos.find({}, {'titulo':1, '_id':0}).sort({precio:1}).skip(2).limit(1).pretty()
+
+db.createUser({user: 'pepe', pwd: 'asd456', roles:[{role: 'read', db: 'ecommerce'}]})
+
+db.productos.insert({titulo:"asd"})
+
+exit
