@@ -1,30 +1,24 @@
 {
-  "name": "desafio6",
+  "name": "backendcoder",
   "version": "1.0.0",
-  "description": "Desafio 6",
-  "main": "Server.js",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/Server.js"
+    "start" :  "nodemon --inspect ./src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Gzurakowski/backendCoder.git"
   },
-  "author": "Gonzalo Zurakowski",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Gzurakowski/backendCoder/issues"
   },
   "homepage": "https://github.com/Gzurakowski/backendCoder#readme",
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "http": "0.0.1-security",
-    "knex": "^0.95.14",
-    "mysql": "^2.18.1",
-    "socket.io": "^4.3.1",
-    "sqlite3": "^5.0.2"
+    "mongoose": "^6.3.0"
   }
 }
