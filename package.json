@@ -1,0 +1,27 @@
+{
+  "name": "backendcoder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gzurakowski/backendCoder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gzurakowski/backendCoder/issues"
+  },
+  "homepage": "https://github.com/Gzurakowski/backendCoder#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.2.0",
+    "jest": "^27.5.1"
+  }
+}
