@@ -1,11 +1,13 @@
 import express, {Router} from 'express'
-import Contenedor from '../contenedores/contenedor.js'
-
+import productDaoMongo from '../daos/productDaoMongo.js'
+import productosDaoFS from '../daos/productosDaoFS.js'
+import productsDaoFirebase from '../daos/productsDaoFirebase.js'
 
 const admin = true
 
-
-export const contenedorProductos = new Contenedor('./src/contenedores/productos.txt') 
+const daoMongo = new productDaoMongo();
+const productosDao = new productosDaoFS()
+const daoFirebase = new productsDaoFirebase()
 
 
 const productos = Router()
@@ -16,13 +18,67 @@ productos.use(express.static('public'))
 productos.use(express.json())
 
 
+
+
 productos.get('/', async (req, res) =>{
-    res.json(await contenedorProductos.getAll())
+    
+    let productos
+    try {
+        productos = await productosDao.getAll()
+    } catch (e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
+    
+    let products
+    try {
+        products = await daoMongo.getAll()
+    } catch (e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
+    
+    let prods
+    try {
+        prods = await daoFirebase.getAllProducts()
+    } catch (e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
+    
+    res.status(200).json([productos, products, prods])
+    
 })
 
 productos.get('/:id', async (req, res) =>{
     const {id} = req.params;
-    res.json(await contenedorProductos.getById(id))
+    
+    let producto
+    try {
+        producto = await productosDao.getById(id)
+    } catch (e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
+    
+    let product
+    try {
+        product = await daoMongo.getById(id)
+    } catch (e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
+    
+    let prod
+    try {
+        prod = await daoFirebase.getById(id)
+    } catch (e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
+    
+    res.status(200).json([producto, product])
+    
 })
 
 productos.post('/',async (req, res) =>{
@@ -37,8 +93,29 @@ productos.post('/',async (req, res) =>{
             precio:req.body.precio,
             stock:req.body.stock
         }
-        console.log(producto)
-        await contenedorProductos.save(producto).catch(err => res.sendStatus(500))
+        
+        try {
+            await productosDao.save(producto)
+        
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
+        try {
+            await daoMongo.create(producto)
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
+        try {
+            await daoFirebase.save(producto)
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
         res.sendStatus(200)
     }else{
         res.send('No eres Admin')
@@ -57,9 +134,31 @@ productos.put('/:id', async (req, res) =>{
             precio:req.body.precio,
             stock:req.body.stock
         }
-        await contenedorProductos.editById(id, producto)
-        .then(() => res.sendStatus(200))
-        .catch((err) => res.sendStatus(500))
+        
+        try {
+            await productosDao.editById(id, producto)
+        
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
+        
+        try {
+            daoMongo.updateById(id, producto)
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
+        try {
+            daoFirebase.updateById(id, producto)
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+
+        res.sendStatus(200)
     }else{
         res.send('No eres Admin')
     }    
@@ -68,9 +167,32 @@ productos.put('/:id', async (req, res) =>{
 productos.delete('/:id', async (req, res) =>{
     if (admin){
         const {id} = req.params
-        await contenedorProductos.deleteById(id)
-        .then(() => res.sendStatus(200))
-        .catch(() => res.sendStatus(500))
+        
+        try {
+            await productosDao.deleteById(id)
+        
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
+        try {
+            daoMongo.deleteById(id)
+        
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
+        try {
+            daoFirebase.deleteById(id)
+        
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+        
+        res.sendStatus(200)
     }else{
         res.send('No eres Admin')
     }

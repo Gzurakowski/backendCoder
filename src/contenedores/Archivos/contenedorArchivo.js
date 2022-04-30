@@ -1,10 +1,12 @@
 import fs from 'fs'
 
-export default class Contenedor {
+export default class contenedorArchivo {
+    
     constructor(archivo){
         this.id = 0
         this.archivo = archivo;
     }
+    
     async save(data){
         data.id = this.id
         await fs.promises.readFile(this.archivo,'utf-8')
@@ -35,11 +37,13 @@ export default class Contenedor {
         .then(arch => arch.filter(obj => obj.id == number)[0])
         .catch(error => console.log(error))
     }
+    
     async getAll(){
         return await fs.promises.readFile(this.archivo,'utf-8')
         .then(arch => JSON.parse(arch))// si lee el archivo lo parsea
         .catch(error => console.log(error))
     }
+    
     async editById(id, changedElement){
         return await fs.promises.readFile(this.archivo,'utf-8')
         .then(arch => JSON.parse(arch))
@@ -57,6 +61,7 @@ export default class Contenedor {
         .catch(err => console.log(err))
         
     }
+    
     async deleteById(number){
         await fs.promises.readFile(this.archivo,'utf-8')
         .then(arch => JSON.parse(arch))// si lee el archivo lo parsea
@@ -66,6 +71,7 @@ export default class Contenedor {
         })
         .catch(error => console.log(error))
     }
+    
     async deleteAll(number){
         await fs.promises.writeFile(this.archivo, JSON.stringify([])).catch(error =>console.log(error))
     }

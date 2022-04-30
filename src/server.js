@@ -1,7 +1,11 @@
 import express, {Router} from 'express'
 //const multer = require('multer')
+
+import "./config.js"
 import productos from './rutas/productos.js'
 import carrito from './rutas/carrito.js'
+
+
 const app = express()
 
 

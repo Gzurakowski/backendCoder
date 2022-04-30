@@ -20,7 +20,10 @@
   },
   "homepage": "https://github.com/Gzurakowski/backendCoder#readme",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
-    "fs": "0.0.1-security"
+    "firebase-admin": "^10.1.0",
+    "fs": "0.0.1-security",
+    "mongoose": "^6.3.1"
   }
 }
