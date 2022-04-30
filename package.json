@@ -5,7 +5,8 @@
   "main": "Server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/Server.js"
+    "start": "node ./src/Server.js",
+    "start2":"node ./desafioGenerico.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,11 @@
     "http": "0.0.1-security",
     "knex": "^0.95.14",
     "mysql": "^2.18.1",
+    "normalizr": "^3.6.2",
     "socket.io": "^4.3.1",
     "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.2.0"
   }
 }

@@ -2,6 +2,7 @@ const express = require('express')
 const {Server: HttpServer} = require('http');
 const {Server: IOServer} = require('socket.io')
 const {DB} = require('./contenedor.js')
+const {faker} = require('@faker-js/faker')
 require('dotenv').config()
 
 const mySQLOptions = {
@@ -32,6 +33,14 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
+app.get('/api/productos-test', async (req, res) => {
+    const productos = []
+    for(let i = 0; i < 5; i++){
+        productos.push({titulo:faker.commerce.product(), foto:faker.image.business(50,50,true), precio: faker.commerce.price() }) 
+    }
+    res.json({productos:productos})
+})
+
 
 
 
@@ -58,6 +67,6 @@ io.on('connection', async socket => {
 })
 
 
-httpServer.listen(8080, ()=>{
+httpServer.listen(3000, ()=>{
     console.log('server On')
 })
