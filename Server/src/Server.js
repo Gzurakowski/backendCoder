@@ -1,8 +1,18 @@
-const express = require('express')
-const cookieParser = require('cookie-parser')
-const expressSession = require('express-session')
-const connectMongo = require('connect-mongo')
-const cors = require('cors')
+import express from 'express'
+import cookieParser from 'cookie-parser'
+import expressSession from 'express-session'
+import connectMongo from 'connect-mongo'
+import cors from 'cors'
+import Login from './routes/login.js'
+import productos from './routes/productos.js'
+import mongoose from 'mongoose'
+
+mongoose.connect("mongodb+srv://gonzalo:Coder123@coderhouse.yox2b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+  useNewUrlParser:true,
+  useUnifiedTopology:true
+})
+
+
 const advancedOptions = {useNewUrlParser:true, useUnifiedTopology:true}
 const app = express()
 const port = 3001
@@ -37,29 +47,12 @@ app.use(expressSession({
    }
 }))
 
-app.get('/api/login', (req, res) => {
-    if(req.session.username){
-        res.status(200).json({username:req.session.username})
-    }else{
-        res.status(200).json({})
-    }
-})
+app.use('/api/login', Login)
+app.use('/api/productos', productos)
 
-app.post('/api/login', (req, res) => {
-    const {username} = req.body.data
-    if(!req.session.username){
-        req.session.username = username
-        res.status(200).json({username:username})
-    }else{
-        res.sendStatus(200)
-    }
-})
 
-app.get('/api/logout', (req, res) => {
-    req.session.destroy(err => {
-        if(err) res.sendStatus(500)
-        else res.sendStatus(200)
-    })
-})
+
+
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -2,25 +2,22 @@ import React, { useEffect } from 'react'
 
 function Content() {
     
-    const {token} = useAuth()  
-    
-    useEffect(() => {
-        if(!token){
-            <Navigate to='/login' />
-        }
-        
-        console.log(token)
-    }, [token])
+    const {token} = useAuth()
     return (
         <div>
             <Navigation />
-            {token && <h1 className='text-4xl font-mono ring-offset-indigo-500'>Bienvenido {token}</h1>}
+            <div className='flex bg-red-300 justify-center mt-3'>
+                {token && <h1 className='text-4xl font-mono'>Bienvenido {token}</h1>}
+            </div>
+            <Productos/>
         </div>
     )
 }
 
 import useAuth from '../hooks/useAuth'
 import { Navigate, NavLink } from 'react-router-dom';
+import FormProductos from './FormProductos';
+import Productos from './Productos';
 
 const Navigation = () => {
   const {token, onLogout} = useAuth()

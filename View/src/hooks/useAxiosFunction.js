@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import axiosInstance from "../AxiosInstance";
 
 const useAxiosFunction = () => {
@@ -6,6 +7,8 @@ const useAxiosFunction = () => {
     const [response, setResponse] = useState({}) 
     const [error, setError] = useState('')
     const [controller, setController] = useState(null)
+    
+    const navigate = useNavigate()
     
     const axiosFetch = async (configObj) => {
         const {
@@ -42,6 +45,18 @@ const useAxiosFunction = () => {
         controller?.abort()
       }
     }, [controller])
+    
+    useEffect(() => {
+        const Unauthorized = () => {
+            console.log('unauthorized')
+            if(error?.response?.status === 401) navigate('/login')
+            console.log(error)
+        }
+        console.log('efect')
+        Unauthorized()
+        
+    }, [error])
+    
     
     return [response, error, loading, axiosFetch]
 }

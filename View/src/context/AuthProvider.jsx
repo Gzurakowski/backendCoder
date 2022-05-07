@@ -18,7 +18,7 @@ const AuthProvider = ({children}) => {
     }
     
     const handleLogout = async () => {
-        await fetch({url:'/api/logout', method:'GET'})
+        await fetch({url:'/api/login/logout', method:'GET'})
         setToken(null)
         navigate('/login')
     }
@@ -42,6 +42,8 @@ const AuthProvider = ({children}) => {
     
     
     
+    
+    
     return (
         <AuthContext.Provider value={value}>
             {children}
@@ -49,11 +51,4 @@ const AuthProvider = ({children}) => {
     )
     
 }
-
-
-const fakeAuth = () =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve('2342f2f1d131rf12'), 250);
-  });
-  
 export default AuthProvider
