@@ -25,7 +25,7 @@ const useAxiosFunction = () => {
             setController(ctrl)
             const res = await axiosInstance[method.toLowerCase()](url, {
                 ...requestConfig,
-                data:data,
+                ...data,
                 signal: ctrl.signal 
             })
             console.log(res)

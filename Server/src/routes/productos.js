@@ -6,9 +6,17 @@ const productosDao = new ProductosDao()
 
 const productos = Router()
 
-productos.use(auth)
+// productos.use(auth)
 
-productos.get('/', async (req, res) => {
+const checkAuth = (req, res, next) => {
+    if(req.isAuthenticated()){
+        next()
+    }else{
+        res.status(401).json({error:'Not logged in'})
+    }
+}
+
+productos.get('/', checkAuth,async (req, res) => {
     try{
         const productos = await productosDao.getAll()
         res.status(200).json({productos:productos})
@@ -17,7 +25,7 @@ productos.get('/', async (req, res) => {
     }
 })
 
-productos.post('/', async (req, res) => {
+productos.post('/',checkAuth, async (req, res) => {
     try{
         const prod = req.body.data
         console.log(prod)
@@ -28,5 +36,8 @@ productos.post('/', async (req, res) => {
         res.status(500).send("Error guardando producto")
     }
 })
+
+
+
 
 export default productos

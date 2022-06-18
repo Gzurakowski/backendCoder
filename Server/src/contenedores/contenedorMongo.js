@@ -27,6 +27,10 @@ class ContenedorMongo {
         return await this.model.deleteOne({id:id})
     }
     
+    async getByProperty(property, value){
+        return await this.model.findOne({property:value})
+    }
+    
 }
 
 export default ContenedorMongo

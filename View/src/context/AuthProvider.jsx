@@ -10,21 +10,21 @@ const AuthProvider = ({children}) => {
     
     const [token, setToken] = useState(null)
     
-    const handleLogin = async (username) => {
-        await fetch({url:'/api/login', method:'POST', data:{username:username}})
+    const handleLogin = async (username, password) => {
+        const res = await fetch({url:'/passport/login', method:'POST', data:{username:username, password:password}})
         console.log(res.username)
         setToken(res.username)
         navigate('/private/content')
     }
     
     const handleLogout = async () => {
-        await fetch({url:'/api/login/logout', method:'GET'})
+        await fetch({url:'/passport/logout', method:'GET'})
         setToken(null)
         navigate('/login')
     }
     
     const handleInit = async () => {
-        const response = await fetch({url:'/api/login', method:'GET'})
+        const response = await fetch({url:'/passport/login', method:'GET'})
         console.log(response)
         if(response?.username){
             setToken(res.username)
@@ -32,12 +32,32 @@ const AuthProvider = ({children}) => {
         }
     }
     
+    const handleSignUp = async (username, password, address) => {
+        const response = await fetch({url:'/passport/signup', method:'POST', data:{username:username, password:password, address:address}})
+        console.log(response)
+        if(response?.username){
+            setToken(res.username)
+            navigate('/private/content')
+        }
+    }
+    
+    const toLogin = () => {
+        navigate('/login')
+    }
+    
+    const toSignUp = () => {
+        navigate('/signup')
+    }
+    
     
     const value = {
         token, 
         onLogin:handleLogin,
         onLogout:handleLogout,
-        onInit:handleInit
+        onSignUp:handleSignUp,
+        onInit:handleInit,
+        toLogin,
+        toSignUp
     }
     
     
