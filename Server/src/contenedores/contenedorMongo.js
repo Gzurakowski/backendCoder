@@ -28,7 +28,7 @@ class ContenedorMongo {
     }
     
     async getByProperty(property, value){
-        return await this.model.findOne({property:value})
+        return await this.model.findOne({[property]:value})
     }
     
 }

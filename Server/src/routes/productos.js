@@ -10,7 +10,7 @@ const productos = Router()
 
 const checkAuth = (req, res, next) => {
     if(req.isAuthenticated()){
-        next()
+        return next()
     }else{
         res.status(401).json({error:'Not logged in'})
     }
@@ -27,12 +27,10 @@ productos.get('/', checkAuth,async (req, res) => {
 
 productos.post('/',checkAuth, async (req, res) => {
     try{
-        const prod = req.body.data
-        console.log(prod)
+        const prod = req.body
         await productosDao.save(prod)
         res.sendStatus(200)
     }catch(err){
-        console.log(err)
         res.status(500).send("Error guardando producto")
     }
 })

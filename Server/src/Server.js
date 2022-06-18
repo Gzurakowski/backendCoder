@@ -2,15 +2,17 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import expressSession from 'express-session'
 import connectMongo from 'connect-mongo'
+import mongoose from 'mongoose'
 import cors from 'cors'
 import Login from './routes/login.js'
 import productos from './routes/productos.js'
-import mongoose from 'mongoose'
+import random from './routes/random.js'
 import Passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import passport from 'passport'
 import UserDao from './daos/userDao.js'
 import Bcrypt from 'bcrypt'
+import config from './config.js'
 
 mongoose.connect("mongodb+srv://gonzalo:Coder123@coderhouse.yox2b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
   useNewUrlParser: true,
@@ -20,9 +22,8 @@ mongoose.connect("mongodb+srv://gonzalo:Coder123@coderhouse.yox2b.mongodb.net/my
 
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 const app = express()
-const port = 3001
 
-const whitelist = ['http://localhost:3000']
+const whitelist = [process.env.WHITELIST]
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
@@ -70,10 +71,8 @@ passport.use('signup', new LocalStrategy(
     }
     try {
       const user = await userDao.save(newUser)
-      console.log(user)
       return done(null, user)
     } catch (err) {
-      console.log(err)
       done(null, false, { message: 'Error creating user' })
     }
   }
@@ -84,8 +83,8 @@ passport.serializeUser((user, done) => {
   done(null, user._id)
 })
 
-passport.deserializeUser((id, done) => {
-  done(null, userDao.getById(id))
+passport.deserializeUser(async (id, done) => {
+  done(null, await userDao.getByProperty('_id', id))
 })
 
 
@@ -97,15 +96,16 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(expressSession({
   store: connectMongo.create({
-    mongoUrl: "mongodb+srv://gonzalo:Coder123@coderhouse.yox2b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    mongoUrl: config.db.url,
     mongoOptions: advancedOptions
   }),
 
   secret: "MySecret",
-  resave: true,
+  resave: false,
+  rolling:true,
   saveUninitialized: false,
   cookie: {
-    maxAge: 600
+    maxAge: 60000
   }
 }))
 
@@ -114,7 +114,7 @@ app.use(passport.session())
 
 app.get('/passport/login', (req, res) => {
   if (req.isAuthenticated()) {
-    res.status(200).json({ username: req.user.username, address: req.user.address })
+    res.status(200).json(req.user)
   } else {
     res.status(401).json({ error: 'Not logged in' })
   }
@@ -122,7 +122,6 @@ app.get('/passport/login', (req, res) => {
 
 
 app.post('/passport/login', Passport.authenticate('login'), (req, res) => {
-  console.log(req)
   const user = req.user
   res.status(200).json({ username: user.username, address: user.address })
 })
@@ -139,13 +138,28 @@ app.get('/passport/logout', (req, res) => {
   })
 })
 
+app.get('/api/info', (req, res) => {
+  const info = {
+    platform: process.platform,
+    node: process.version,
+    argv: process.argv,
+    memory: process.memoryUsage(),
+    execPath: process.execPath,
+    pid: process.pid,
+    projectFolder: process.cwd()
+  }
+
+  res.status(200).json(info)
+})
+
 
 app.use('/api/login', Login)
 app.use('/api/productos', productos)
+app.use('/api/random', random)
 
 
 
 
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(config.port, () => console.log(`Example app listening on port ${config.port}!`))
